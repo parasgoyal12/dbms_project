@@ -3,36 +3,36 @@
 
   <?php
     $title = "Home Page";
-    include($_SERVER['DOCUMENT_ROOT'].'\includes\head.html');
+    include('./includes/head.php');
     ?>
   <body>
     <!-- Navigation Bar -->
     <?php
-        include($_SERVER['DOCUMENT_ROOT'].'\includes\navbar.php');
+        include('./includes/navbar.php');
     ?>
 
     <main role="main">
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-        <img class="d-block w-100" src="images\1.jpg" alt="First slide">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <img class="d-block w-100" src="images/1.jpg" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                <img class="d-block w-100" src="images/2.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                <img class="d-block w-100" src="images/3.jpg" alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <div class="carousel-item">
-        <img class="d-block w-100" src="images\2.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-        <img class="d-block w-100" src="images\3.jpg" alt="Third slide">
-        </div>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-    </div>
     <div class="container my-4">
     <!-- Example row of columns -->
         <div class="row">
@@ -57,14 +57,13 @@
 
     </div> 
     </main>
-    <?php include $_SERVER['DOCUMENT_ROOT'].'\includes\footer.php'?>
+    <?php include './includes/footer.php'?>
 
    
 
     
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    
 
   </body>
 </html>
