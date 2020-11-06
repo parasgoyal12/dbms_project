@@ -8,21 +8,31 @@
     <?php
         include('./includes/navbar.php');
     ?>
-
-    <div class="container text-center col-3 my-4">
-        <form class="form-signin" action="./login.php" method="post">
-            <h1>Sign In</h1><br>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <br>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <br>
-            <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
-            <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p> -->
-            <?php include './includes/footer.php'?>
-        </form>
-    </div>
+    <div class="container mt-1">
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h4 class="card-title mt-3 text-center">Create Account</h4>
+                <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="email" class="form-control" placeholder="Email address" type="email">
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input name="password" class="form-control" placeholder="Password" type="password">
+                    </div> <!-- form-group// -->                                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Log In  </button>
+                    </div> <!-- form-group// -->      
+                    <p class="text-center">Need an account? <a href="./register.php">Register</a> </p>                                                                 
+                </form>
+            </article>
+        </div> 
+    </div> 
     <?php print_r($_POST);?>
 
 </body>

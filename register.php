@@ -9,8 +9,8 @@
         include('./includes/navbar.php');
     ?>
 
-<div class="container">
-<br>
+<div class="container mt-1">
+
 <div class="card bg-light">
 <article class="card-body mx-auto" style="max-width: 400px;">
 	<h4 class="card-title mt-3 text-center">Create Account</h4>
