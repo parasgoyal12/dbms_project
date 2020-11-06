@@ -13,12 +13,12 @@
   <body>
     <div class="container-fluid" style="background-color:#efefef;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href=<?php echo $_SERVER['PHP_SELF']; ?>>Eyaatri</a>
+        <a class="navbar-brand" href="index.js">Eyaatri</a>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href=<?php echo $_SERVER['PHP_SELF']; ?>>Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.js">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
