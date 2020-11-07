@@ -1,3 +1,6 @@
+<?php include("./functions.php");
+    if(isset($_SESSION['user'])) header('location: ./index.php');
+?>
 <!doctype html>
 <html lang="en">
     <?php
@@ -15,11 +18,12 @@
 <article class="card-body mx-auto" style="max-width: 400px;">
 	<h4 class="card-title mt-3 text-center">Create Account</h4>
 	<form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
+    <?php display_errors();?>
         <div class="form-group input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
             </div>
-            <input name="name" class="form-control" placeholder="Name" type="text">
+            <input name="username" class="form-control" placeholder="Name" type="text">
         </div> <!-- form-group// -->
         <div class="form-group input-group">
             <div class="input-group-prepend">
@@ -52,7 +56,7 @@
             <input name="confirm_password" class="form-control" placeholder="Repeat password" type="password">
         </div> <!-- form-group// -->                                      
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+            <button type="submit" class="btn btn-primary btn-block" name="Register"> Create Account  </button>
         </div> <!-- form-group// -->      
         <p class="text-center">Have an account? <a href="./login.php">Log In</a> </p>                                                                 
     </form>

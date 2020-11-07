@@ -1,3 +1,4 @@
+<?php include "./functions.php";?>
 <!doctype html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
     <?php
         include('./includes/navbar.php');
     ?>
-
+    
     <main role="main">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -33,24 +34,39 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+        <div class="d-flex justify-content-center my-2"><?php
+            if(isset($_SESSION['success'])){
+            echo '<div class="alert alert-success">';
+            echo $_SESSION['success'];
+            echo "</div>";
+            unset($_SESSION['success']);
+        }
+        
+        ?></div>
     <div class="container my-4">
     <!-- Example row of columns -->
         <div class="row">
         <div class="col-md-4">
             <h2>Book Tickets</h2>
             <p>Select from the pool of available trains and book your tickets for the next journey. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">Book Ticket &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="booktrain.php" role="button">Book Ticket &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+        <?php
+            if(isAdmin())
+            echo '
+                <h2>Admin</h2>
+                <p>Visit here to release new trains into the system.</p>
+                <p><a class="btn btn-secondary" href="admin.php" role="button">Release New Train &raquo;</a></p>
+                ';
+        ?>
         </div>
         <div class="col-md-4">
             <h2>Ticket Details</h2>
             <p>Have a PNR Number? Check the details of the passengers here. </p>
             <p><a class="btn btn-secondary" href="#" role="button">Passenger Details &raquo;</a></p>
         </div>
-        <div class="col-md-4">
-            <h2>Admin</h2>
-            <p>Login Right Here to get admin access and add new train details.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Login &raquo;</a></p>
-        </div>
+        
         </div>
 
         <hr>
