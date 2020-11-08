@@ -28,7 +28,9 @@
         if(count($errors)==0){
             $insert_query = "INSERT INTO train (train, date, ac, sleeper)
                      VALUES ('$train_no', '$date', $ac , $sleeper)";
-            mysqli_query($db, $insert_query);
+            if(!mysqli_query($db, $insert_query)){
+                print_r ($db->error);
+            }
             $_SESSION['train_insert_success']  = "Train Number $train_no released for $date";
             // header('location: ./admin.php');	
         }
