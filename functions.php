@@ -25,6 +25,7 @@ if(isset($_GET['logout'])){
 	unset($_SESSION['user']);
 	session_destroy();
 }
+
 function register(){
     // global $db;
     global $email,$errors,$username,$db;
