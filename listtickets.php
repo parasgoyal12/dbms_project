@@ -17,21 +17,21 @@
             <div class="col-md-4">
                 <div class="container"><?php
                 $tickets=[
-                ["PNR"=>1,"Date"=>"2020-10-1","Train"=>123],
-                ["PNR"=>2,"Date"=>"2020-10-2","Train"=>125],
-                ["PNR"=>3,"Date"=>"2020-10-3","Train"=>124]
+                    ["PNR"=>1,"Date"=>"2020-10-1","Train"=>123],
+                    ["PNR"=>2,"Date"=>"2020-10-2","Train"=>125],
+                    ["PNR"=>3,"Date"=>"2020-10-3","Train"=>124]
                 ];
                 // $tickets=array();
                 if(count($tickets)==0){
-                echo '<h1>No tickets booked so far!!</h1>';
+                    echo '<h1>No tickets booked so far!!</h1>';
                 }
                 else{
-                echo "<ul class='list-group list-group-flush'>";
+                    echo "<ul class='list-group list-group-flush'>";
                 foreach($tickets as $ticket)
                 {
-                echo("<a class='list-group-item list-group-item-action' href='#'>");
-                echo "Ticket No. ".$ticket["PNR"].' Booked on train '.$ticket['Train'].' for '.$ticket["Date"];
-                echo "</a>";
+                    echo("<a class='list-group-item list-group-item-action' href='#'>");
+                    echo "Ticket No. ".$ticket["PNR"].' Booked on train '.$ticket['Train'].' for '.$ticket["Date"];
+                    echo "</a>";
                 }
                 echo "</ul>";
                 
