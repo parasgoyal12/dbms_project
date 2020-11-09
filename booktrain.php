@@ -3,6 +3,26 @@
         $_SESSION['success']="You must log in first";
         header('location: ./login.php');
     }
+    if(isset($_POST['Book'])){
+        book();
+    }
+    function Book(){
+        global $db,$errors;
+        $train=$_POST['train'];
+        $date=$_POST['date'];
+        $passengers = $_POST['passengers'];
+        $numPas=$_POST['numPas'];
+        $query="SELECT * FROM train WHERE train='$train' and date=date('$date');";
+        $rec=mysqli_query($db,$query);
+        $coach_type=$_POST['coach_type'];
+        if(mysqli_num_rows($rec)==1){
+            echo "Train Found";
+            //Insert logic for train addition here by checking available seats
+        }
+        else{
+            array_push($errors,"No such train found.");
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,28 +43,35 @@ include('./includes/head.php');
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-train"></i> </span>
                         </div>
-                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0>
+                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 required>
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
                         </div>
-                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d');?> >
+                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d');?> required>
                     </div>
                     <div class="form-group input-group">
                         <input type="hidden" name="numPas" id="count" value="1" >
                     </div>
                     <div class="form-group input-group">
+                        <label for="CoachType">Coach Type </label>
+                        <select name="coach_type" class='form-control mx-2' placeholder="coach_type" id="CoachType">
+                            <option value="SL">Sleeper-SL</option>
+                            <option value="AC">Air Conditioned-AC</option>
+                        </select>
+                    </div>
+                    <div class="form-group input-group">
                         <div class="fieldset">
                             <div class="form-row ">
                                 <div class="col-5">
-                                    <input type="text" class="form-control mb-2"  placeholder="Full Name">
+                                    <input type="text" class="form-control mb-2"  placeholder="Full Name" name="passengers[0]['name']" required>
                                 </div>
                                 <div class="col-4">
-                                    <input type="number" min=0 class="form-control mb-2" name="passengers[]['age']" placeholder="Age">
+                                    <input type="number" min=0 class="form-control mb-2" name="passengers[0]['age']" placeholder="Age" required>
                                 </div>
                                 <div class="col-3">
-                                    <select name="passengers[]['gender']"  class="form-control mb-2" placeholder="Gender">
+                                    <select name="passengers[0]['gender']"  class="form-control mb-2" placeholder="Gender">
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
                                         <option value="N">Prefer Not Say</option>
@@ -70,7 +97,7 @@ include('./includes/head.php');
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" form="bookingForm" formaction=<?php echo $_SERVER['PHP_SELF'];?> formmethod="post" class="btn btn-info btn-block">Book!</button>
+                    <button type="submit" form="bookingForm" formaction=<?php echo $_SERVER['PHP_SELF'];?> formmethod="post" class="btn btn-info btn-block" name="Book">Book!</button>
                 </div>
             </article>
         </div> 

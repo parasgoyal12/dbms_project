@@ -15,6 +15,13 @@ addBt.addEventListener('click',()=>{
     field=document.createElement('div');
     field.setAttribute('class',fieldSet.children[0].getAttribute('class'));
     field.innerHTML=fieldSet.children[0].innerHTML;
-    fieldSet.appendChild(field);    
+    fieldSet.appendChild(field); 
+    field=Array.from(fieldSet.children)[fieldSet.children.length-1];
+    inps=field.querySelectorAll('input');
+    for(let i=0;i<inps.length;i++){
+        nn=inps[i].getAttribute('name').split("'")[1];
+        inps[i].setAttribute('name',`passengers[${numPass}]['${nn}']`);
+    } 
+    field.querySelector('select').setAttribute('name',`passengers[${numPass}]['gender']`);
     document.querySelector('#count').setAttribute('value',numPass+1);
 });
