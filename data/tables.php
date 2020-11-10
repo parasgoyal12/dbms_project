@@ -47,7 +47,7 @@
     }
 
     $ticket_table = "CREATE TABLE ticket(
-        pnr VARCHAR(10),
+        pnr INT NOT NULL AUTO_INCREMENT,
         booked_by INT NOT NULL REFERENCES users(id),
         train_number VARCHAR(5) NOT NULL REFERENCES train(train),
         date DATE NOT NULL REFERENCES train(date),
