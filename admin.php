@@ -80,7 +80,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
                         </div>
-                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d', strtotime('+2 months'));?> title="Enter Release Date" >
+                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d', strtotime('+2 months +1 day'));?> title="Enter Release Date" >
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
