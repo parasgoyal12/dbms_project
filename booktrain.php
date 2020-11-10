@@ -23,7 +23,21 @@
             $user_id=$_SESSION['user']['id'];
             $query="INSERT INTO ticket(booked_by,train_number,date,coach_type,num_passengers) values($user_id,$train,"."'$date','$coach_type',$numPas);";
             if(mysqli_query($db,$query)){
-                // echo "Ticket inserted passengers yTI,";
+                $details = array();
+                $pnr = $db->insert_id;
+                foreach ($passengers as $passenger)
+                {
+                    $i = 0;
+                    foreach ($passenger as $x){
+                        $details[$i] = $x;
+                        $i = $i + 1;
+                    }
+                    $insertPassenger = "CALL insertPassenger($pnr, '$coach_type', '$details[0]', $details[1], '$details[2]')";
+                    // echo $insertPassenger;
+                    if(!mysqli_query($db, $insertPassenger)){
+                        echo "<script>console.log('Error Entering in Passenger Table')</script>";
+                    }
+                }
             }
             else {
                 array_push($errors,$db->error);
@@ -113,7 +127,7 @@ include('./includes/head.php');
             </article>
         </div> 
     </div> 
-    <?php print_r($_POST);?>
+    <!-- <?php print_r($_POST);?> -->
     <?php include('./includes/footer.php');?>
 <script src="./assets/booking.js"></script>
 </body>
