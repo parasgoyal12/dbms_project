@@ -109,17 +109,6 @@ INSERT INTO `train` (`train`, `date`, `ac`, `sleeper`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `user`
---
-
-CREATE TABLE `user` (
-  `email` varchar(255) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `phone` varchar(15) NOT NULL,
-  `password` char(32) NOT NULL,
-  `isAdmin` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
