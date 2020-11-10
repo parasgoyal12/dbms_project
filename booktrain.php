@@ -8,16 +8,26 @@
     }
     function Book(){
         global $db,$errors;
-        $train=$_POST['train'];
-        $date=$_POST['date'];
-        $passengers = $_POST['passengers'];
-        $numPas=$_POST['numPas'];
+        $train=e($_POST['train']);
+        $date=e($_POST['date']);
+        $date = date('Y-m-d', strtotime(str_replace('-', '/', $date)));
+        // echo $date;
+        $passengers = ($_POST['passengers']);
+        $numPas=e($_POST['numPas']);
         $query="SELECT * FROM train WHERE train='$train' and date=date('$date');";
         $rec=mysqli_query($db,$query);
         $coach_type=$_POST['coach_type'];
         if(mysqli_num_rows($rec)==1){
-            echo "Train Found";
+            // echo "Train Found";
             //Insert logic for train addition here by checking available seats
+            $user_id=$_SESSION['user']['id'];
+            $query="INSERT INTO ticket(booked_by,train_number,date,coach_type,num_passengers) values($user_id,$train,"."'$date','$coach_type',$numPas);";
+            if(mysqli_query($db,$query)){
+                // echo "Ticket inserted passengers yTI,";
+            }
+            else {
+                array_push($errors,$db->error);
+            }
         }
         else{
             array_push($errors,"No such train found.");
@@ -49,7 +59,8 @@ include('./includes/head.php');
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
                         </div>
-                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d');?> required>
+                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d',strtotime('+1 day',strtotime(date('Y-m-d'))));?> max=<?php 
+                        echo date('Y-m-d',strtotime('+2 months',strtotime(date('Y-m-d'))));?> required>
                     </div>
                     <div class="form-group input-group">
                         <input type="hidden" name="numPas" id="count" value="1" >
@@ -57,8 +68,8 @@ include('./includes/head.php');
                     <div class="form-group input-group">
                         <label for="CoachType">Coach Type </label>
                         <select name="coach_type" class='form-control mx-2' placeholder="coach_type" id="CoachType">
-                            <option value="SL">Sleeper-SL</option>
-                            <option value="AC">Air Conditioned-AC</option>
+                            <option value="S">Sleeper-SL</option>
+                            <option value="A">Air Conditioned-AC</option>
                         </select>
                     </div>
                     <div class="form-group input-group">
