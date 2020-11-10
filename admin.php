@@ -29,9 +29,11 @@
             $insert_query = "INSERT INTO train (train, date, ac, sleeper)
                      VALUES ('$train_no', '$date', $ac , $sleeper)";
             if(!mysqli_query($db, $insert_query)){
-                print_r ($db->error);
+                $_SESSION['primary_key_error'] = "Train $train_no For $date Already Exists.";
             }
-            $_SESSION['train_insert_success']  = "Train Number $train_no released for $date";
+            else{
+                $_SESSION['train_insert_success']  = "Train Number $train_no released for $date";
+            }
             // header('location: ./admin.php');	
         }
     }
@@ -52,6 +54,13 @@
             <article class="card-body mx-auto" style="width: 400px;">
                 <h4 class="card-title mt-3 text-center">Release a Train</h4>
                 <div class="d-flex justify-content-center my-2"><?php
+                        if(isset($_SESSION['primary_key_error'])){
+                            echo '<div class="alert alert-danger">';
+                            echo $_SESSION['primary_key_error'];
+                            echo "</div>";
+                            unset($_SESSION['primary_key_error']);
+                        }
+
                         if(isset($_SESSION['train_insert_success'])){
                         echo '<div class="alert alert-success">';
                         echo $_SESSION['train_insert_success'];
@@ -64,25 +73,26 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-train"></i> </span>
                         </div>
-                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0>
+                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 title="Enter Train Number">
+                        <!-- <a href="#" title="This is a title.">Mouseover me</a> -->
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
                         </div>
-                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d');?> >
+                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d', strtotime('+2 months'));?> title="Enter Release Date" >
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <img src="./images/ac.jpg" width="16" height="16"> </span>
                         </div>
-                        <input name="ac" class="form-control" placeholder="AC Coaches" type="number" min=0>
+                        <input name="ac" class="form-control" placeholder="AC Coaches" type="number" min=0 title="Enter Number of AC Coaches To Be Added">
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <img src="./images/fan.jpg" width="16" height="16"> </span>
                         </div>
-                        <input name="sl" class="form-control" placeholder="Sleeper Coaches" type="number" min=0>
+                        <input name="sl" class="form-control" placeholder="Sleeper Coaches" type="number" min=0 title="Enter Number of AC Coaches To Be Added">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-info btn-block" name="Release">Release</button>
