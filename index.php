@@ -63,8 +63,8 @@
         </div>
         <div class="col-md-4">
             <h2>Ticket Details</h2>
-            <p>Have a PNR Number? Check the details of the passengers here. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">Passenger Details &raquo;</a></p>
+            <p>View the details of the tickets. </p>
+            <p><a class="btn btn-secondary" href="listtickets.php" role="button">Ticket Details &raquo;</a></p>
         </div>
         
         </div>
