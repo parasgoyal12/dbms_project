@@ -4,39 +4,6 @@
         header('location: ./index.php');
     }
     
-    if(isset($_POST['Release'])){
-        release();
-    }
-    function release(){
-        global $errors, $db;
-        $train_no = e($_POST['train']);
-        $date = e($_POST['date']);
-        $sleeper = e($_POST['sl']);
-        $ac = e($_POST['ac']);
-        if (empty($train_no)) { 
-            array_push($errors, "Train Number is required"); 
-        }
-        if (empty($date)) { 
-            array_push($errors, "Release Date is required"); 
-        }
-        if (empty($sleeper)) { 
-            array_push($errors, "Please Specify the Number of Sleeper Coaches"); 
-        }
-        if (empty($ac)) { 
-            array_push($errors, "Please Specify the Number of Sleeper Coaches"); 
-        }
-        if(count($errors)==0){
-            $insert_query = "INSERT INTO train (train, date, ac, sleeper)
-                     VALUES ('$train_no', '$date', $ac , $sleeper)";
-            if(!mysqli_query($db, $insert_query)){
-                $_SESSION['primary_key_error'] = "Train $train_no For $date Already Exists.";
-            }
-            else{
-                $_SESSION['train_insert_success']  = "Train Number $train_no released for $date";
-            }
-            // header('location: ./admin.php');	
-        }
-    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -51,53 +18,29 @@
 
     <div class="container mt-4">
         <div class="card bg-light">
-            <article class="card-body mx-auto" style="width: 400px;">
-                <h4 class="card-title mt-3 text-center">Release a Train</h4>
-                <div class="d-flex justify-content-center my-2"><?php
-                        if(isset($_SESSION['primary_key_error'])){
-                            echo '<div class="alert alert-danger">';
-                            echo $_SESSION['primary_key_error'];
-                            echo "</div>";
-                            unset($_SESSION['primary_key_error']);
-                        }
-
-                        if(isset($_SESSION['train_insert_success'])){
-                        echo '<div class="alert alert-success">';
-                        echo $_SESSION['train_insert_success'];
-                        echo "</div>";
-                        unset($_SESSION['train_insert_success']);
-                    }        ?></div>
-                <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
-                <?php display_errors();?>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-train"></i> </span>
+            <article class="card-body mx-auto" style="width: 600px ;">
+                <h4 class="card-title mt-3 text-center">Admin Actions</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">View Released Trains</h5>
+                            <p class="card-text">Visit Here if you want to view the trains released into the system.</p>
+                            <a href="viewreleased.php" class="btn btn-primary">View Trains</a>
                         </div>
-                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 title="Enter Train Number">
-                        <!-- <a href="#" title="This is a title.">Mouseover me</a> -->
-                    </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
                         </div>
-                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d', strtotime('+2 months +1 day'));?> max=<?php echo date('Y-m-d', strtotime('+6 months'));?>title="Enter Release Date" >
                     </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <img src="./images/ac.jpg" width="16" height="16"> </span>
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Release a train</h5>
+                            <p class="card-text">Visit here if you want to release a new train into the system.</p>
+                            <a href="releasetrain.php" class="btn btn-primary">Release a Train</a>
                         </div>
-                        <input name="ac" class="form-control" placeholder="AC Coaches" type="number" min=0 title="Enter Number of AC Coaches To Be Added">
-                    </div>
-                    <div class="form-group input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"> <img src="./images/fan.jpg" width="16" height="16"> </span>
                         </div>
-                        <input name="sl" class="form-control" placeholder="Sleeper Coaches" type="number" min=0 title="Enter Number of AC Coaches To Be Added">
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-info btn-block" name="Release">Release</button>
                     </div>
-                </form>
+                    
             </article>
         </div> 
     </div> 

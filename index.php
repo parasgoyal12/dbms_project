@@ -56,8 +56,8 @@
             if(isAdmin())
             echo '
                 <h2>Admin</h2>
-                <p>Visit here to release new trains into the system.</p>
-                <p><a class="btn btn-secondary" href="admin.php" role="button">Release New Train &raquo;</a></p>
+                <p>Visit here to view the functions related to administrative actions.</p>
+                <p><a class="btn btn-secondary" href="admin.php" role="button">Admin Panel &raquo;</a></p>
                 ';
         ?>
         </div>
