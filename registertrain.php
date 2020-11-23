@@ -4,39 +4,40 @@
         header('location: ./index.php');
     }
     
-    if(isset($_POST['Release'])){
-        release();
+    if(isset($_POST['Register_Train'])){
+        register_train();
     }
-    function release(){
+    function register_train(){
         global $errors, $db;
         $train_no = e($_POST['train']);
-        $date = e($_POST['date']);
-        $sleeper = e($_POST['sl']);
-        $ac = e($_POST['ac']);
-        $user_id=$_SESSION['user']['id'];
+        $src = e($_POST['source']);
+        $dest = e($_POST['dest']);
+        $startTime = e($_POST['startTime']);
+        $endTime =e($_POST['endTime']);
         if (empty($train_no)) { 
             array_push($errors, "Train Number is required"); 
         }
-        if (empty($date)) { 
-            array_push($errors, "Release Date is required"); 
+        if (empty($src)) { 
+            array_push($errors, "Source station is required"); 
         }
-        if (empty($sleeper)) { 
-            array_push($errors, "Please Specify the Number of Sleeper Coaches"); 
+        if (empty($dest)) { 
+            array_push($errors, "Destination station is required"); 
         }
-        if (empty($ac)) { 
-            array_push($errors, "Please Specify the Number of Sleeper Coaches"); 
+        if (empty($startTime)) { 
+            array_push($errors, "Start Time is Required"); 
+        }
+        if(empty($endTime)){
+            array_push($errors,"End Time is required");
         }
         if(count($errors)==0){
-            $insert_query = "INSERT INTO train (train, date, ac, sleeper)
-                     VALUES ('$train_no', '$date', $ac , $sleeper)";
+            $insert_query = "INSERT INTO train_info
+                     VALUES ('$train_no', '$src', '$dest' , '$startTime','$endTime')";
             if(!mysqli_query($db, $insert_query)){
-                if($db->errno==1452)
-                array_push($errors,"Train $train_no Not Registered.");
-                else
-                $_SESSION['primary_key_error'] = "Train $train_no For $date Already Exists.";
+                print_r($db->error);
+                $_SESSION['primary_key_error'] = "Train $train_no Already Exists.";
             }
             else{
-                $_SESSION['train_insert_success']  = "Train Number $train_no released for $date";
+                $_SESSION['train_insert_success']  = "Train Number $train_no registered Succesfully!.";
             }
             // header('location: ./admin.php');	
         }
@@ -77,29 +78,35 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-train"></i> </span>
                         </div>
-                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 title="Enter Train Number">
+                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 title="Enter Train Number" required>
                         <!-- <a href="#" title="This is a title.">Mouseover me</a> -->
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
+                            <span class="input-group-text"> <i class="fa fa-play"></i> </span>
                         </div>
-                        <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d', strtotime('+2 months +1 day'));?> max=<?php echo date('Y-m-d', strtotime('+6 months'));?> title="Enter Release Date" >
+                        <input name="source" class="form-control" placeholder="Source Station" type="text" title="Source Station" required>
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"> <img src="./images/ac.jpg" width="16" height="16"> </span>
+                            <span class="input-group-text"> <i class="fa fa-ban"></i> </span>
                         </div>
-                        <input name="ac" class="form-control" placeholder="AC Coaches" type="number" min=0 title="Enter Number of AC Coaches To Be Added">
+                        <input name="dest" class="form-control" placeholder="Destination Station" type="text" title="Destination Station" required>
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"> <img src="./images/fan.jpg" width="16" height="16"> </span>
+                            <span class="input-group-text"> <i class="fa fa-clock-o"></i> </span>
                         </div>
-                        <input name="sl" class="form-control" placeholder="Sleeper Coaches" type="number" min=0 title="Enter Number of AC Coaches To Be Added">
+                        <input name="startTime" class="form-control" placeholder="Start Time" type="time" title="Enter Start Time from Dep Station" required>
+                    </div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-clock-o"></i></span>
+                        </div>
+                        <input name="endTime" class="form-control" placeholder="End Time" type="time" title="Enter Arrival Time for Arr Station" required>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-info btn-block" name="Release">Release</button>
+                        <button type="submit" class="btn btn-info btn-block" name="Register_Train">Register Train</button>
                     </div>
                 </form>
             </article>

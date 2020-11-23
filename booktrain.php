@@ -35,7 +35,8 @@
                     $insertPassenger = "CALL insertPassenger($pnr, '$coach_type', '$details[0]', $details[1], '$details[2]')";
                     // echo $insertPassenger;
                     if(!mysqli_query($db, $insertPassenger)){
-                        echo "<script>console.log('Error Entering in Passenger Table')</script>";
+                        print_r($db->error);
+                        // echo "<script>console.log('$db->error')</script>";
                     }
                 }
             }

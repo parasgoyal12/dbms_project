@@ -30,13 +30,22 @@
                     $coach='';
                     if($ticket['coach_type']=='A')$coach="Air Conditioned-AC";
                     else $coach="Sleeper-SL";
+                    $query="SELECT * from train_info where train=".$ticket['train_number'];
+                    $trains=mysqli_query($db,$query);
+                    $train=mysqli_fetch_assoc($trains);
+                    // var_dump($train);
                     echo '<div class="card m-2">
                     <div class="card-header">
                       Ticket Details
                     </div>
                     <div class="card-body">
-                      <h6 class="card-title"> Train Number:'.$ticket['train_number'].'</h6>
+                      
                       <p class="card-text">Date of Journey : '.$ticket['date'].'</p><p class="card-text">Coach Type : '.$coach.'</p>
+                      <p class="card-text">Start Time : '.date('H:i',strtotime($train['startTime'])).'</p><p class="card-text">Journey Finishes at : '.date('H:i',strtotime($train['endTime'])).'</p>
+                    </div>
+                    <div class="card-body">
+                      <h6 class="card-title"> Train Number:'.$ticket['train_number'].'</h6>
+                      <p class="card-text">Depart From :'.$train['fstation'].'</p><p class="card-text">Arrival at : '.$train['tstation'].'</p>
                     </div>
                   </div>';
                   $query='Select * from passenger where pnr='.$_GET['tktpnr'];

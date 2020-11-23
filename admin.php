@@ -39,7 +39,27 @@
                         </div>
                         </div>
                     </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">View Available Trains</h5>
+                            <p class="card-text">Visit Here if you want to view available trains.</p>
+                            <a href="admin_view_avbl.php" class="btn btn-primary">View Trains</a>
+                        </div>
+                        </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Register a new train</h5>
+                            <p class="card-text">Visit here if you want to register a new train into the system.</p>
+                            <a href="registertrain.php" class="btn btn-primary">Register a Train</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
                     
             </article>
         </div> 
