@@ -9,6 +9,7 @@
     $db = 'dbms_pro';
     $db_conn = new mysqli('localhost', $user, $pass, $db) or die("Unable To Connect");
     
+    $db_conn->query("DROP TABLE train_info");
     $db_conn->query("DROP TABLE passenger");
     $db_conn->query("DROP TABLE ticket");
     $db_conn->query("DROP TABLE train");
@@ -41,13 +42,36 @@
         // echo "Error While Creating User Table<br><hr>";
     }
 
+    $train_info = "CREATE TABLE train_info(
+        train VARCHAR(5) NOT NULL,
+        fstation VARCHAR(4) NOT NULL,
+        tstation VARCHAR(4) NOT NULL,
+        startTime TIME,
+        endTime TIME,
+        primary key (train)
+    )";
+
+    if($db_conn->query($train_info)){
+        echo '<div class="alert alert-success" role="alert">
+            Train Info Table Created!!!
+        </div>';
+        // echo "Created Train Table<br><hr>";
+    }
+    else{
+        echo '<div class="alert alert-danger" role="alert">
+            Train Info Table Creation Failed!!!
+        </div>';
+        // echo "Error While Creating Train Table<br><hr>";
+    }
+
     // Train Information
     $train_table = "CREATE TABLE train(
         train VARCHAR(5) NOT NULL,
         date DATE NOT NULL,
         ac INT DEFAULT 0,
         sleeper INT DEFAULT 0,
-        PRIMARY KEY(train, date)
+        PRIMARY KEY(train, date),
+        FOREIGN KEY (train) REFERENCES train_info(train)
     )";
 
     if($db_conn->query($train_table)){
