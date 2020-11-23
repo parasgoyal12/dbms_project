@@ -9,13 +9,46 @@
     $db = 'dbms_pro';
     $db_conn = new mysqli('localhost', $user, $pass, $db) or die("Unable To Connect");
     
+    
+    $db_conn->query("DROP TABLE train");
     $db_conn->query("DROP TABLE train_info");
     $db_conn->query("DROP TABLE passenger");
     $db_conn->query("DROP TABLE ticket");
-    $db_conn->query("DROP TABLE train");
     $db_conn->query("DROP TABLE users");
     $db_conn->query("DROP TABLE ac_coach");
     $db_conn->query("DROP TABLE sleeper_coach");
+    $db_conn->query("DROP TABLE time_dimension");
+
+
+    $time_dimension_table = "CREATE TABLE time_dimension (
+        id                      INTEGER PRIMARY KEY,
+        db_date                 DATE NOT NULL,
+        year                    INTEGER NOT NULL,
+        month                   INTEGER NOT NULL,
+        day                     INTEGER NOT NULL,
+        quarter                 INTEGER NOT NULL,
+        week                    INTEGER NOT NULL,
+        day_name                VARCHAR(9) NOT NULL,
+        month_name              VARCHAR(9) NOT NULL,
+        holiday_flag            CHAR(1) DEFAULT 'f' CHECK (holiday_flag in ('t', 'f')),
+        weekend_flag            CHAR(1) DEFAULT 'f' CHECK (weekend_flag in ('t', 'f')),
+        event                   VARCHAR(50),
+        UNIQUE td_ymd_idx (year,month,day),
+        UNIQUE td_dbdate_idx (db_date)
+    )";
+
+    if($db_conn->query($time_dimension_table)){
+        echo '<div class="alert alert-success" role="alert">
+            Time Dimension Table Created!!!
+        </div>';
+        // echo "Created User Table<br><hr>";
+    }
+    else{
+        echo '<div class="alert alert-danger" role="alert">
+            Time Dimension Table Creation Failed!!!
+        </div>';
+        // echo "Error While Creating User Table<br><hr>";
+    }
 
     // // Booking Agent and Admin Table
     $user_table = "CREATE TABLE users(
@@ -67,11 +100,12 @@
     // Train Information
     $train_table = "CREATE TABLE train(
         train VARCHAR(5) NOT NULL,
-        date DATE NOT NULL,
+        date_id INTEGER NOT NULL,
         ac INT DEFAULT 0,
         sleeper INT DEFAULT 0,
-        PRIMARY KEY(train, date),
-        FOREIGN KEY (train) REFERENCES train_info(train)
+        PRIMARY KEY(train, date_id),
+        FOREIGN KEY (train) REFERENCES train_info(train),
+        FOREIGN KEY (date_id) REFERENCES time_dimension(id)
     )";
 
     if($db_conn->query($train_table)){
@@ -91,12 +125,12 @@
         pnr INT NOT NULL AUTO_INCREMENT,
         booked_by INT NOT NULL,
         train_number VARCHAR(5) NOT NULL,
-        date DATE NOT NULL,
+        date_id INTEGER NOT NULL,
         coach_type CHAR(1) NOT NULL,
         num_passengers INT NOT NULL,
         PRIMARY KEY(pnr),
         FOREIGN KEY (booked_by) REFERENCES users(id),
-        FOREIGN KEY (train_number, date) REFERENCES train(train, date)
+        FOREIGN KEY (train_number, date_id) REFERENCES train(train, date_id)
     )";
 
     if($db_conn->query($ticket_table)){
