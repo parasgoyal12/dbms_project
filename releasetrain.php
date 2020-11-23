@@ -28,7 +28,7 @@
         }
         if(count($errors)==0){
             $insert_query = "INSERT INTO train (train, date, ac, sleeper)
-                     VALUES ('$train_no', '$date', $ac , $sleeper,$user_id)";
+                     VALUES ('$train_no', '$date', $ac , $sleeper)";
             if(!mysqli_query($db, $insert_query)){
                 $_SESSION['primary_key_error'] = "Train $train_no For $date Already Exists.";
             }
