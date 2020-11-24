@@ -42,8 +42,10 @@
                 if($_SERVER['REQUEST_METHOD']=="POST"){
                     // global $db;
                     $date = e($_POST['date']);
-                    
-                    $query = "select * from train where date=date('$date');";
+                    $date_id = mysqli_query($db, "SELECT id FROM time_dimension WHERE db_date='$date'");
+                    $date1 = mysqli_fetch_array($date_id)["id"];
+                    echo $date1;
+                    $query = "select * from train where date_id=$date1;";
                     $trains= mysqli_query($db,$query);
                     if(mysqli_num_rows($trains)==0){
                         echo "<H2 class='text-center'> No Trains Available for $date</H2>";

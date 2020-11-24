@@ -27,8 +27,11 @@
             array_push($errors, "Please Specify the Number of Sleeper Coaches"); 
         }
         if(count($errors)==0){
-            $insert_query = "INSERT INTO train (train, date, ac, sleeper)
-                     VALUES ('$train_no', '$date', $ac , $sleeper)";
+            $date_id = mysqli_query($db, "SELECT id FROM time_dimension WHERE db_date='$date'");
+            $date1 = mysqli_fetch_array($date_id)["id"];
+            // print_r($row["id"]);
+            $insert_query = "INSERT INTO train (train, date_id, ac, sleeper)
+                     VALUES ('$train_no', '$date1', $ac , $sleeper)";
             if(!mysqli_query($db, $insert_query)){
                 if($db->errno==1452)
                 array_push($errors,"Train $train_no Not Registered.");

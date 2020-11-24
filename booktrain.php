@@ -14,14 +14,16 @@
         // echo $date;
         $passengers = ($_POST['passengers']);
         $numPas=e($_POST['numPas']);
-        $query="SELECT * FROM train WHERE train='$train' and date=date('$date');";
+        $date_id = mysqli_query($db, "SELECT id FROM time_dimension WHERE db_date='$date'");
+        $date1 = mysqli_fetch_array($date_id)["id"];
+        $query="SELECT * FROM train WHERE train='$train' and date_id=$date1;";
         $rec=mysqli_query($db,$query);
         $coach_type=$_POST['coach_type'];
         if(mysqli_num_rows($rec)==1){
             // echo "Train Found";
             //Insert logic for train addition here by checking available seats
             $user_id=$_SESSION['user']['id'];
-            $query="INSERT INTO ticket(booked_by,train_number,date,coach_type,num_passengers) values($user_id,$train,"."'$date','$coach_type',$numPas);";
+            $query="INSERT INTO ticket(booked_by,train_number,date_id,coach_type,num_passengers) values($user_id,$train,$date1,'$coach_type',$numPas);";
             if(mysqli_query($db,$query)){
                 $details = array();
                 $pnr = $db->insert_id;

@@ -10,12 +10,12 @@ CREATE PROCEDURE insertPassenger(
 BEGIN
     DECLARE max_allocated INT DEFAULT 0;
     DECLARE train_no_var VARCHAR(5);
-    DECLARE date_var DATE;
+    DECLARE date_var INTEGER;
     DECLARE seat_number INT DEFAULT 0;
     DECLARE coach_number INT DEFAULT 0;
     DECLARE seat_type_var CHAR(2);
 
-    SELECT ticket.train_number, ticket.date
+    SELECT ticket.train_number, ticket.date_id
     INTO train_no_var, date_var
     FROM ticket
     WHERE ticket.pnr=pnr;
@@ -24,7 +24,7 @@ BEGIN
     INTO max_allocated
     FROM ticket as T, passenger as P
     WHERE T.pnr=P.pnr AND T.train_number=train_no_var 
-            AND T.date=date_var AND T.coach_type=coach_type;
+            AND T.date_id=date_var AND T.coach_type=coach_type;
 
     IF coach_type='A' THEN
         SET coach_number = FLOOR(max_allocated/18) + 1;
