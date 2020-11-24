@@ -64,9 +64,7 @@
 </div> <!-- card.// -->
 
 </div> 
-<?php
-    print_r($_POST);
-?>
+
 <!--container end.//-->
     <?php include './includes/footer.php'?>
 

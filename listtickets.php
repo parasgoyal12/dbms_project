@@ -1,7 +1,7 @@
 <?php include 'functions.php';
     if(!isset($_SESSION['user'])){
         $_SESSION['success']="You must log in first.";
-        header('location: location.php');
+        header('location: login.php');
     }
 ?>
 <!DOCTYPE html>
@@ -33,6 +33,7 @@
                         <th scope='col'>Date of Journey</th>
                         <th scope='col'>Number of passengers</th>
                         <th scope='col'> Details </th>
+                        <th scope='col'> Booked On </th>
                       </tr>
                     </thead> <tbody>";
                 foreach($tickets as $ticket)
@@ -40,6 +41,7 @@
                     echo "<tr><th scope='row'>".$ticket['pnr']."</th>";
                     echo "<td>".$ticket["train_number"]."</td>"."<td>".$ticket["date"]."</td><td>".$ticket["num_passengers"]."</td>";
                     echo "<td><a class='btn btn-outline-dark btn-sm' href='ticketdetail.php?tktpnr=".$ticket['pnr']."'> View </a></td>";
+                    echo '<td>'.date('d-m-Y H:i',strtotime($ticket['booked_on'])).'</td>';
                     echo "</tr>";
                 }
                 echo "</tbody></table>";

@@ -64,7 +64,7 @@
             </article>
         </div> 
     </div> 
-    <?php $_POST;?>
+   
     <div class="container">
         <?php include './includes/footer.php'; ?>
     </div>

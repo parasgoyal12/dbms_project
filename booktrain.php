@@ -39,6 +39,7 @@
                         // echo "<script>console.log('$db->error')</script>";
                     }
                 }
+                header('location: ticketdetail.php?tktpnr='.$pnr);
             }
             else {
                 array_push($errors,$db->error);
@@ -68,14 +69,14 @@ include('./includes/head.php');
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-train"></i> </span>
                         </div>
-                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 required>
+                        <input name="train" class="form-control" placeholder="Train No." type="number" min=0 required value=<?php if(isset($_GET['train_no']))echo $_GET['train_no']?>>
                     </div>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-calendar"></i> </span>
                         </div>
                         <input name="date" class="form-control" placeholder="Date of Journey" type="date" min=<?php echo date('Y-m-d',strtotime('+1 day',strtotime(date('Y-m-d'))));?> max=<?php 
-                        echo date('Y-m-d',strtotime('+2 months',strtotime(date('Y-m-d'))));?> required>
+                        echo date('Y-m-d',strtotime('+2 months',strtotime(date('Y-m-d'))));?> required value=<?php if(isset($_GET['doj']))echo $_GET['doj']?>>
                     </div>
                     <div class="form-group input-group">
                         <input type="hidden" name="numPas" id="count" value="1" >

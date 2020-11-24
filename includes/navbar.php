@@ -10,7 +10,10 @@
             <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="search.php">Search Trains</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="listtickets.php">View Booked Tickets</a>
         </li>
         </ul>
         <div>

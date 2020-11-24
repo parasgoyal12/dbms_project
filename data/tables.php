@@ -100,12 +100,12 @@
     // Train Information
     $train_table = "CREATE TABLE train(
         train VARCHAR(5) NOT NULL,
-        date_id INTEGER NOT NULL,
+        date DATE NOT NULL,
         ac INT DEFAULT 0,
         sleeper INT DEFAULT 0,
-        PRIMARY KEY(train, date_id),
+        PRIMARY KEY(train, date),
         FOREIGN KEY (train) REFERENCES train_info(train),
-        FOREIGN KEY (date_id) REFERENCES time_dimension(id)
+        FOREIGN KEY (date) REFERENCES time_dimension(db_date)
     )";
 
     if($db_conn->query($train_table)){
@@ -125,12 +125,13 @@
         pnr INT NOT NULL AUTO_INCREMENT,
         booked_by INT NOT NULL,
         train_number VARCHAR(5) NOT NULL,
-        date_id INTEGER NOT NULL,
+        date DATE NOT NULL,
         coach_type CHAR(1) NOT NULL,
         num_passengers INT NOT NULL,
+        booked_on DATETIME DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY(pnr),
         FOREIGN KEY (booked_by) REFERENCES users(id),
-        FOREIGN KEY (train_number, date_id) REFERENCES train(train, date_id)
+        FOREIGN KEY (train_number, date) REFERENCES train(train, date)
     )";
 
     if($db_conn->query($ticket_table)){
